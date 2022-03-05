@@ -2,7 +2,7 @@
 
 ## Success Case:
 1. System queries all galleries
-2. System returns all galleries
+2. System returns a list of all galleries
 
 ## Exception Case - Invalid URL:
 1. System returns unexpected error message.
