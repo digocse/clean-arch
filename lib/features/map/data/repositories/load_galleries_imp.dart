@@ -11,7 +11,7 @@ class LoadGalleriesImp implements LoadGalleriesRepository {
   LoadGalleriesImp({required this.firebaseClient, required this.firebaseDataSource, required this.url});
 
   @override
-  Stream<List<Gallery>> getGalleries() {
-    return firebaseDataSource.getGalleries();
+  Stream<List<Gallery>> getGalleries() async* {
+    yield* firebaseDataSource.getGalleries();
   }
 }

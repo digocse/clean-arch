@@ -1,25 +1,26 @@
-import 'package:clean_arch/features/map/ui/bloc/bloc.dart';
+import 'dart:async';
+
 import 'package:clean_arch/features/map/ui/pages/map_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clean_arch/features/core/injection_container.dart' as di;
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(BlocProvider(create: (context) => MapBloc(), child: MyApp()));
+Future<void> main() async {
+  runZonedGuarded<Future<void>>(() async {
+    await di.initInjectionContainer();
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(const MyApp());
+  }, (error, stack) => {});
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: MapPage.id,
       routes: {
-        MapPage.id: (context) => MapPage(),
+        MapPage.id: (context) => const MapPage(),
       },
     );
   }

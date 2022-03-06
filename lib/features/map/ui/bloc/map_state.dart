@@ -10,11 +10,11 @@ abstract class MapState extends Equatable {
 
 class MapLoadingState extends MapState {}
 
-class MapGalleriesLoaded extends MapState {
+class MapGalleriesLoadedState extends MapState {
   final List<Gallery> galleries;
 
-  MapGalleriesLoaded({required this.galleries});
+  MapGalleriesLoadedState({required this.galleries});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [galleries];
 }
