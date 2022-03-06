@@ -16,7 +16,7 @@ Future<void> initInjectionContainer() async {
 
   sl.registerLazySingleton<UseCase<List<Gallery>, void>>(() => LoadGalleries(loadGalleriesRepo: sl<LoadGalleriesRepository>()));
   sl.registerLazySingleton<LoadGalleriesRepository>(
-    () => LoadGalleriesImp(firebaseClient: sl<FirebaseClient>(), firebaseDataSource: sl<FirebaseDataSource>(), url: sl()),
+    () => LoadGalleriesImp(firebaseClient: sl<FirebaseClient>(), firebaseDataSource: sl<FirebaseDataSource>()),
   );
 
   sl.registerLazySingleton<FirebaseClient>(() => FirebaseClientImp());
