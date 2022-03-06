@@ -16,7 +16,7 @@ void main() {
   });
   test('Should call FirebaseClient with correct URL', () async {
     final url = faker.internet.httpsUrl();
-    final sut = LoadGalleriesImp(firebaseClient: firebaseClient, firebaseDataSource: firebaseDataSource);
+    final sut = LoadGalleriesRepositoryImp(firebaseDataSource: firebaseDataSource);
 
     sut.getGalleries();
 
@@ -26,7 +26,7 @@ void main() {
   test('Should retrieve all galleries', () async {
     final firebaseClient = FirebaseClientSpy();
     final url = faker.internet.httpsUrl();
-    final sut = LoadGalleriesImp(firebaseClient: firebaseClient, firebaseDataSource: firebaseDataSource);
+    final sut = LoadGalleriesRepositoryImp(firebaseDataSource: firebaseDataSource);
 
     sut.getGalleries();
   });

@@ -1,1 +1,1 @@
-export './load_galleries_imp.dart';
+export './load_galleries_repository_imp.dart';

@@ -6,23 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapPage extends StatefulWidget {
+class MapPage extends StatelessWidget {
   static const String id = '/map';
 
-  const MapPage({Key? key}) : super(key: key);
-
-  @override
-  State<MapPage> createState() => _MapPageState();
-}
-
-class _MapPageState extends State<MapPage> {
-  final Completer<GoogleMapController> _controller = Completer();
-
-  @override
-  void initState() {
-    super.initState();
+  MapPage({Key? key}) : super(key: key) {
     sl.get<MapBloc>().add(GetGalleriesEvent());
   }
+
+  final Completer<GoogleMapController> _controller = Completer();
 
   @override
   Widget build(BuildContext context) {
@@ -37,41 +28,40 @@ class _MapPageState extends State<MapPage> {
         bloc: sl.get<MapBloc>(),
         builder: (context, state) {
           if (state is MapLoadingState) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (state is MapGalleriesLoadedState) {
             return Stack(
               children: <Widget>[
                 GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: const CameraPosition(
-                    target: LatLng(-23.586289, -46.681886),
-                    zoom: 17.55,
-                  ),
-                  onMapCreated: (GoogleMapController controller) async {
-                    _controller.complete(controller);
-                    // _centralizeOnUserPosition();
-                  },
-                  myLocationButtonEnabled: false,
-                  markers: state.galleries
-                      .map(
-                        (document) => Marker(
-                          markerId: MarkerId(document.id),
-                          // icon: const Icon(Icons.directions_boat),
-                          position: LatLng(
-                            document.latLngCoordinates.latitude,
-                            document.latLngCoordinates.longitude,
+                    mapType: MapType.normal,
+                    initialCameraPosition: const CameraPosition(
+                      target: LatLng(-23.586289, -46.681886),
+                      zoom: 17.55,
+                    ),
+                    onMapCreated: (GoogleMapController controller) async {
+                      _controller.complete(controller);
+                      // _centralizeOnUserPosition();
+                    },
+                    myLocationButtonEnabled: false,
+                    markers: state.galleries
+                        .map(
+                          (document) => Marker(
+                            markerId: MarkerId(document.id),
+                            // icon: const Icon(Icons.directions_boat),
+                            position: LatLng(
+                              document.latLngCoordinates.latitude,
+                              document.latLngCoordinates.longitude,
+                            ),
+                            onTap: () {
+                              // Navigator.pushNamed(context, GalleryScreen.id, arguments: {
+                              //   'galleryId': document.id,
+                              // });
+                            },
                           ),
-                          onTap: () {
-                            // Navigator.pushNamed(context, GalleryScreen.id, arguments: {
-                            //   'galleryId': document.id,
-                            // });
-                          },
-                        ),
-                      )
-                      .toSet(),
-                ),
+                        )
+                        .toSet()),
                 // SafeArea(
                 //   child: Padding(
                 //     padding: const EdgeInsets.all(12.0),
