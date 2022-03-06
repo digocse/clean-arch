@@ -1,5 +1,12 @@
+import '../repositories/repositories.dart';
 import '../entities/entities.dart';
 
-abstract class LoadGalleries {
-  Future<List<GalleryEntity>> getGalleries();
+class LoadGalleries {
+  final LoadGalleriesRepository loadGalleriesRepo;
+
+  LoadGalleries({required this.loadGalleriesRepo});
+
+  Stream<List<Gallery>> call() {
+    return loadGalleriesRepo.getGalleries();
+  }
 }

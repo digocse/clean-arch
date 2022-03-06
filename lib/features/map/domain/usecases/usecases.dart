@@ -1,1 +1,1 @@
-export './load_galleries.dart';
+export '../repositories/load_galleries_repository.dart';
