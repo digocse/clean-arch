@@ -21,19 +21,21 @@ class GalleryDocument extends Gallery {
   const GalleryDocument({
     required String id,
     required LatLng latLngCoordinates,
-    required List<String> storesIdsList,
+    required List<String> storesIdList,
   }) : super(
           id: id,
           latLngCoordinates: latLngCoordinates,
-          storesIdsList: storesIdsList,
+          storesIdsList: storesIdList,
         );
 
   factory GalleryDocument.fromDataSource(DocumentSnapshot galleryDoc) {
     final galleryDataMap = galleryDoc.data() as Map;
+    final GeoPoint geoPoint = galleryDataMap['latLngCoordinates'];
+
     return GalleryDocument(
       id: galleryDataMap['id'],
-      latLngCoordinates: galleryDataMap['latLngCoordinates'],
-      storesIdsList: galleryDataMap['storesIdsList'],
+      latLngCoordinates: LatLng(geoPoint.latitude, geoPoint.longitude),
+      storesIdList: List<String>.from(galleryDataMap['stores']),
     );
   }
 }

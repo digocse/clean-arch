@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:clean_arch/features/core/injection_container.dart';
 import 'package:clean_arch/features/map/ui/bloc/bloc.dart';
+import 'package:clean_arch/features/map/ui/widgets/galleries_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,10 +10,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapPage extends StatelessWidget {
   static const String id = '/map';
   final bloc = sl.get<MapBloc>();
-
-  MapPage({Key? key}) : super(key: key);
-
   final Completer<GoogleMapController> _controller = Completer();
+
+  MapPage() : super();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class MapPage extends StatelessWidget {
                         .map(
                           (document) => Marker(
                             markerId: MarkerId(document.id),
-                            // icon: const Icon(Icons.directions_boat),
+                            icon: BitmapDescriptor.defaultMarker,
                             position: LatLng(
                               document.latLngCoordinates.latitude,
                               document.latLngCoordinates.longitude,
@@ -61,15 +61,12 @@ class MapPage extends StatelessWidget {
                           ),
                         )
                         .toSet()),
-                // SafeArea(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(12.0),
-                //     child: GalleriesCarousel(
-                //       documents: galleriesDocs!,
-                //       mapController: _controller,
-                //     ),
-                //   ),
-                // ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: GalleriesCarousel(galleries: state.galleries, mapController: _controller),
+                  ),
+                ),
               ],
             );
           }
