@@ -8,10 +8,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatelessWidget {
   static const String id = '/map';
+  final bloc = sl.get<MapBloc>();
 
-  MapPage({Key? key}) : super(key: key) {
-    sl.get<MapBloc>().add(GetGalleriesEvent());
-  }
+  MapPage({Key? key}) : super(key: key);
 
   final Completer<GoogleMapController> _controller = Completer();
 
@@ -25,7 +24,7 @@ class MapPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.blue, size: 40.0),
       ),
       body: BlocBuilder<MapBloc, MapState>(
-        bloc: sl.get<MapBloc>(),
+        bloc: bloc,
         builder: (context, state) {
           if (state is MapLoadingState) {
             return const Center(child: CircularProgressIndicator());

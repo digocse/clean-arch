@@ -13,11 +13,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         super(MapLoadingState()) {
     on<GetGalleriesEvent>(_getGalleries);
     on<GalleriesUpdated>(_galleriesUpdated);
+    add(GetGalleriesEvent());
   }
 
-  Stream<MapState> _getGalleries(GetGalleriesEvent event, Emitter<MapState> emit) async* {
-    loadGalleriesUseCase.callStream(null).listen((galleriesList) {
-      add(GalleriesUpdated(galleriesList));
+  Future<void> _getGalleries(GetGalleriesEvent event, Emitter<MapState> emit) async {
+    await emit.forEach(loadGalleriesUseCase.callStream(null), onData: (List<Gallery> galleriesList) {
+      return MapGalleriesLoadedState(galleries: galleriesList);
     });
   }
 

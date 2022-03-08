@@ -12,10 +12,4 @@ class LoadGalleries extends UseCase<List<Gallery>, void> {
   Stream<List<Gallery>> callStream(void params) async* {
     yield* loadGalleriesRepo.getGalleries();
   }
-
-  @override
-  Future<List<Gallery>> call(void params) {
-    // TODO: implement call
-    throw UnimplementedError();
-  }
 }

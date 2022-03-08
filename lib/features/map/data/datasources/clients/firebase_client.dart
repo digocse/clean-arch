@@ -5,17 +5,10 @@ import '../../models/models.dart';
 import '../../../domain/entities/entities.dart';
 
 abstract class FirebaseClient {
-  Future<void> request({required String url});
   Stream<List<GalleryModel>> requestGalleries();
 }
 
 class FirebaseClientImp implements FirebaseClient {
-  @override
-  Future<void> request({required String url}) {
-    // TODO: implement request
-    throw UnimplementedError();
-  }
-
   @override
   Stream<List<GalleryModel>> requestGalleries() {
     return FirebaseFirestore.instance.collection('galleries').snapshots().map((snapshot) {

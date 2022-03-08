@@ -6,6 +6,6 @@ class FirebaseClientSpy extends Mock implements FirebaseClient {
     mockRequest();
   }
 
-  When mockRequestCall() => when(() => request(url: any(named: 'url')));
+  When mockRequestCall() => when(() => any);
   void mockRequest() => mockRequestCall().thenAnswer((_) async => _);
 }

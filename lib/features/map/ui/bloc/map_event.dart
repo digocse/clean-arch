@@ -1,13 +1,6 @@
-import 'package:equatable/equatable.dart';
-// import 'package:meta/meta.dart';
-
 import '../../domain/entities/entities.dart';
 
-// @immutable
-abstract class MapEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class MapEvent {}
 
 class GetGalleriesEvent extends MapEvent {
   GetGalleriesEvent();
